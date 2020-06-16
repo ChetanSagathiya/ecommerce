@@ -1,0 +1,73 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container mt-5">
+            <div class="billing_details">
+                <div class="row">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{messages}}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="col-lg-8">
+                        <h3>Billing Details</h3>
+                        <form class="row contact_form" action="{% url 'complete_order' %}" method="post">
+                            {% csrf_token%}
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="fullname" required>
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="number" placeholder="Phone number" required>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required/>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Town/City" required/>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="state" name="state" placeholder="state" required/>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required/>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="submit" class="btn btn-success text-dark" value="Confirm Order"></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Your Order</h2>
+                            <table class="table">
+                                <tr>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                                {% for item in items %}
+                                <tr>
+                                    <td >{{item.product.name}}</td>
+                                    <td>X{{item.quantity}}</td>
+                                    <td style="text-align: left"> &#8377;{{item.get_item_total|floatformat:2}}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            <ul class="list list_2">
+                                <li><h6>Subtotal <span class='text-success ml-4'>
+                                &#8377; {{order.get_cart_total|floatformat:2}}</span></h6></li>
+                                <hr/>
+                                <li><h5>Total <span class='text-success ml-5'>&#8377; {{order.get_cart_total_gst|floatformat:2}} </span>  With 18% GST
+                                </h5></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+{% endblock %}

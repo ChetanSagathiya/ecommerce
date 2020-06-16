@@ -1,0 +1,46 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+				</div>
+				{% if messages %}
+					<h1 class='text-success'>{% for message in messages%}</h1>
+					{{message}}
+					{% endfor %}
+				{% endif %}
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Register</h3>
+						<form class="row login_form" action="{% url 'register' %}" method="post" id="contactForm">
+							<div class="col-md-12 form-group">
+								{% csrf_token %}
+								<input type="text" class="form-control" id="name" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" required>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="name" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="name" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
+
+							<div class="col-md-12 form-group px-0 py-0">
+								<input type="password" class="form-control" id="name" name="confirm_password" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" required>
+							</div>
+
+							<div class="col-md-12 form-group mt-3">
+								<button type="submit" value="submit" class="primary-btn">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!--================End Login Box Area =================-->
+{% endblock %}

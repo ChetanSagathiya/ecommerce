@@ -1,0 +1,113 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <!--================Cart Area =================-->
+    <section class="cart_area mt-5">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    {% if items %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="color: red;" scope="col">Product</th>
+                                <th style="color: red;" scope="col">Price</th>
+                                <th style="color: red;" scope="col">Quantity</th>
+                                <th style="color: red;" scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="{{item.product.image.url}}" height="100px" width="100px" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>{{item.product.name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>&#8377; {{item.product.price|floatformat:2}}</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" name="qty" maxlength="12" value="{{item.quantity}}" title="Quantity:"
+                                            class="input-text qty qty-value" readonly="true">
+                                        <button  class="increase items-count increase-item" 
+                                            data-product="{{item.product.id}}" data-action="add" >
+                                            <i class="lnr lnr-chevron-up"></i>
+                                        </button>
+                                        <button class="reduced items-count decrease-item" 
+                                            data-product="{{item.product.id}}" data-action="remove">
+                                            <i class="lnr lnr-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>&#8377;{{item.get_item_total|floatformat:2}}</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                            <tr class="bottom_button">
+                                <td>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="cupon_text d-flex align-items-center">
+                                        <input type="text" placeholder="Coupon Code">
+                                        <a class="primary-btn" href="#">Apply</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>&#8377;{{order.get_cart_total|floatformat:2}}</h5>
+                                </td>
+                            </tr>
+                            
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                {% endif %}
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="primary-btn" href="{% url 'store' %}">Continue Shopping</a>
+                                        {% if items %}
+                                        <a class="primary-btn ml-2" href="{% url 'checkout' %}">Proceed to checkout</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+{% endblock %}

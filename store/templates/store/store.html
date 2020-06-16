@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+{% load static%}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="col-lg-3">
+		</div>
+		<div class="col-lg-9">
+			{% if messages %}
+				{% for message in messages%}
+					<h1 class="text-success">{{message}}</h1>
+				{% endfor %}
+			{% endif %}
+		</div>
+		<div class="row">
+			<!-- single product -->
+			{% for product in products %}
+			<div class="col-lg-3 col-md-6">
+				<div class="single-product">
+					<img src="{{ product.image.url }}" height="250px" width="200px" style="border-radius: 10px;" alt="no image"/>
+					<div class="product-details">
+						<h6>{{ product.name }}</h6>
+						<div class="price">
+							<h6>&#x20B9; {{product.price|floatformat:2}}</h6>
+						</div>
+						<hr/>
+						<div class="prd-bottom">
+							<button  class="add-to-cart hover-text btn btn-success"  data-product="{{product.id}}" data-action="None">Buy</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			{% if products_filter %}
+				{% for product in products_filter%}
+					<div class="col-lg-3 col-md-6">
+						<div class="single-product">
+							<img src="{{ product.image.url }}" height="250px" width="200px" style="border-radius: 10px;" alt="no image"/>
+							<div class="product-details">
+								<h6>{{ product.name }}</h6>
+								<div class="price">
+									<h6>&#x20B9; {{product.price|floatformat:2}}</h6>
+								</div>
+								<hr/>
+								<div class="prd-bottom">
+									<button  class="add-to-cart hover-text btn btn-success"  data-product="{{product.id}}" data-action="None">Buy</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
